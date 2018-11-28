@@ -2,40 +2,39 @@ const router = require('express').Router()
 const passport = require('passport')
 const { User } = require('../db')
 const jwt = require('jwt-simple')
-const pinterest = require('passport-pinterest')
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy
 module.exports = router
 
-router.get('/', passport.authenticate('pinterest', { scope : 'email' }));
+router.get('/', passport.authenticate('google', { scope : 'email' }));
 
 router.get('/callback',
-passport.authenticate('pinterest', { session : false, failureRedirect : '/login' }), (req, res) => {
+passport.authenticate('google', { session : false, failureRedirect : '/login' }), (req, res) => {
   var token = req.user.token;
   res.redirect('/?token=' + token)
 });
 
 
-const pinterestCredentials = {
-  clientID: '5001086713473297614',
-  clientSecret: 'b6be9664e307f5002bedc6b112de2e00c9e7dfbf0b773eba961a5db7b5141774',
-  scope: ['read_public', 'write_public'],
-  callbackURL: '/api/pinterest/callback',
+const googleCredentials = {
+  clientID: 'your-client-id',
+  clientSecret: 'your-client-key',
+  callbackURL: '/api/google/callback',
   state : false
 };
 
 const verificationCallback = (accessToken, refreshToken, profile, done) => {
-  console.log('callback profile: ', profile)
+  //console.log('callback profile: ', profile)
   const info = {
     name : profile.displayName,
     password : 'oAuth',
-    pinterestAccessToken : accessToken
+    accessToken : accessToken
   };
   User.findOrCreate({
-    where : { pinterestId : profile.id },
+    where : { googleId : profile.id },
     defaults : info
   })
   .then(user => {
-    console.log('accessToken: ', accessToken)
-    console.log('callback USER : ', user)
+    //console.log('accessToken: ', accessToken)
+    //console.log('callback USER : ', user)
     const userObj = user[0].dataValues;
     const token = jwt.encode({ id : userObj.id }, process.env.JWT_SECRET );
     const userData = { token : token };
@@ -43,7 +42,7 @@ const verificationCallback = (accessToken, refreshToken, profile, done) => {
   })
 };
 
-const strategy = new pinterest.Strategy(pinterestCredentials, verificationCallback);
+const strategy = new GoogleStrategy(googleCredentials, verificationCallback);
 
 passport.use(strategy);
 

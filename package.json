@@ -38,6 +38,7 @@
     "jwt-simple": "^0.5.5",
     "method-override": "^3.0.0",
     "passport": "^0.4.0",
+    "passport-google-oauth": "^1.0.0",
     "passport-pinterest": "^1.0.0",
     "pg": "^7.4.3",
     "query-string": "^6.2.0",

@@ -37,9 +37,9 @@ class LoginForm extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, { history }) => {
   return {
-    login : credentials => dispatch(login(credentials))
+    login : (credentials) => dispatch(login(credentials, history))
   };
 };
 

@@ -20,10 +20,10 @@ const User = conn.define('user', {
       notEmpty : true
     }
   },
-  pinterestId : {
+  googleId : {
     type : Sequelize.STRING
   },
-  pinterestAccessToken : {
+  accessToken : {
     type : Sequelize.STRING
   }
 });

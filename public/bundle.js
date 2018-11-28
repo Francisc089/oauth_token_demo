@@ -42815,10 +42815,12 @@ var LoginForm = function (_Component) {
   return LoginForm;
 }(_react.Component);
 
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+var mapDispatchToProps = function mapDispatchToProps(dispatch, _ref) {
+  var history = _ref.history;
+
   return {
     login: function login(credentials) {
-      return dispatch((0, _authStore.login)(credentials));
+      return dispatch((0, _authStore.login)(credentials, history));
     }
   };
 };
@@ -42867,7 +42869,7 @@ var LoginPage = function LoginPage(props) {
       null,
       'Login Page'
     ),
-    _react2.default.createElement(_LoginForm2.default, null),
+    _react2.default.createElement(_LoginForm2.default, { history: props.history }),
     _react2.default.createElement(_OAuthLogins2.default, null)
   );
 };
@@ -42978,11 +42980,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var oauthLogin = function oauthLogin() {
   return _react2.default.createElement(
     'form',
-    { method: 'get', action: '/api/pinterest' },
+    { method: 'get', action: '/api/google' },
     _react2.default.createElement(
       'button',
       { type: 'submit' },
-      'Login with Pinterest'
+      'Login with Google'
     )
   );
 };

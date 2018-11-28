@@ -8,7 +8,7 @@ const LoginPage = (props) => {
   return (
     <Fragment>
       <h3>Login Page</h3>
-      <LoginForm />
+      <LoginForm history={props.history}/>
       <OAuthLogins />
     </Fragment>
   )

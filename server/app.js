@@ -35,7 +35,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/api/auth', require('./routes/auth'));
-app.use('/api/pinterest', require('./routes/oauthPinterest'));
+app.use('/api/google', require('./routes/oauth'));
 
 app.use((err, req, res, next)=> {
   console.log(err);

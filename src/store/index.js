@@ -1,6 +1,6 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux'
-import thunkMiddleware from 'redux-thunk'
-import loggerMiddleware from 'redux-logger'
+import thunks from 'redux-thunk'
+import logger from 'redux-logger'
 import auth from './authStore.js'
 
 const reducer = combineReducers({
@@ -9,7 +9,7 @@ const reducer = combineReducers({
 
 const store = createStore(
   reducer,
-  applyMiddleware(thunkMiddleware, loggerMiddleware)
+  applyMiddleware(thunks, logger)
 );
 
 export default store
